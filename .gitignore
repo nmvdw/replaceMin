@@ -5,3 +5,4 @@
 *.log
 *.ptb
 *.gz
+*.DS_Store
