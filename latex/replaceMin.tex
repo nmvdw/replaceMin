@@ -189,6 +189,7 @@ They are defined pointwise.
 \AgdaFunction{TimedNat}\<%
 \\
 \>[0]\AgdaFunction{Z}\AgdaSpace{}%
+\AgdaSymbol{\{}\AgdaBound{i}\AgdaSymbol{\}}\AgdaSpace{}%
 \AgdaSymbol{=}\AgdaSpace{}%
 \AgdaNumber{0}\<%
 \\
@@ -201,6 +202,7 @@ They are defined pointwise.
 \AgdaFunction{TimedNat}\AgdaSymbol{)}\<%
 \\
 \>[0]\AgdaFunction{S}\AgdaSpace{}%
+\AgdaSymbol{\{}\AgdaBound{i}\AgdaSymbol{\}}\AgdaSpace{}%
 \AgdaBound{n}\AgdaSpace{}%
 \AgdaSymbol{=}\AgdaSpace{}%
 \AgdaInductiveConstructor{suc}\AgdaSpace{}%
@@ -221,6 +223,7 @@ Note that the function \AF{⊓} takes the minimum of two natural numbers.
 \AgdaFunction{TimedNat}\AgdaSymbol{)}\<%
 \\
 \>[0]\AgdaFunction{min}\AgdaSpace{}%
+\AgdaSymbol{\{}\AgdaBound{i}\AgdaSymbol{\}}\AgdaSpace{}%
 \AgdaBound{n}\AgdaSpace{}%
 \AgdaBound{m}\AgdaSpace{}%
 \AgdaSymbol{=}\AgdaSpace{}%
@@ -518,6 +521,7 @@ We also have delayed versions of them.
 \AgdaFunction{TimedTree}\AgdaSymbol{)}\<%
 \\
 \>[0]\AgdaFunction{TLeaf}\AgdaSpace{}%
+\AgdaSymbol{\{}\AgdaBound{i}\AgdaSymbol{\}}\AgdaSpace{}%
 \AgdaBound{n}\AgdaSpace{}%
 \AgdaSymbol{=}\AgdaSpace{}%
 \AgdaInductiveConstructor{Leaf}\AgdaSpace{}%
@@ -534,6 +538,7 @@ We also have delayed versions of them.
 \AgdaFunction{TimedTree}\AgdaSymbol{)}\<%
 \\
 \>[0]\AgdaFunction{TNode}\AgdaSpace{}%
+\AgdaSymbol{\{}\AgdaBound{i}\AgdaSymbol{\}}\AgdaSpace{}%
 \AgdaBound{l}\AgdaSpace{}%
 \AgdaBound{r}\AgdaSpace{}%
 \AgdaSymbol{=}\AgdaSpace{}%
@@ -551,13 +556,13 @@ We also have delayed versions of them.
 \AgdaRecord{▻}\AgdaSpace{}%
 \AgdaFunction{TimedTree}\AgdaSymbol{)}\<%
 \\
-\>[0]\AgdaField{force}\AgdaSpace{}%
-\AgdaSymbol{(}\AgdaFunction{▻Leaf}\AgdaSpace{}%
-\AgdaBound{n}\AgdaSymbol{)}\AgdaSpace{}%
+\>[0]\AgdaFunction{▻Leaf}\AgdaSpace{}%
+\AgdaBound{n}\AgdaSpace{}%
 \AgdaSymbol{=}\AgdaSpace{}%
+\AgdaFunction{pure}\AgdaSpace{}%
 \AgdaInductiveConstructor{Leaf}\AgdaSpace{}%
-\AgdaSymbol{(}\AgdaField{force}\AgdaSpace{}%
-\AgdaBound{n}\AgdaSymbol{)}\<%
+\AgdaOperator{\AgdaFunction{⊛}}\AgdaSpace{}%
+\AgdaBound{n}\<%
 \\
 %
 \\[\AgdaEmptyExtraSkip]%
@@ -681,7 +686,7 @@ Note that we must use \AF{⊳ Tree}, because otherwise we would not be able to a
 \\
 \>[0][@{}l@{\AgdaIndent{0}}]%
 \>[2]\AgdaKeyword{let}%
-\>[391I]\AgdaSymbol{(}\AgdaBound{l'}\AgdaSpace{}%
+\>[396I]\AgdaSymbol{(}\AgdaBound{l'}\AgdaSpace{}%
 \AgdaOperator{\AgdaInductiveConstructor{,}}\AgdaSpace{}%
 \AgdaBound{ml}\AgdaSymbol{)}\AgdaSpace{}%
 \AgdaSymbol{=}\AgdaSpace{}%
@@ -689,7 +694,7 @@ Note that we must use \AF{⊳ Tree}, because otherwise we would not be able to a
 \AgdaBound{l}\AgdaSpace{}%
 \AgdaBound{n}\<%
 \\
-\>[.]\<[391I]%
+\>[.]\<[396I]%
 \>[6]\AgdaSymbol{(}\AgdaBound{r'}\AgdaSpace{}%
 \AgdaOperator{\AgdaInductiveConstructor{,}}\AgdaSpace{}%
 \AgdaBound{mr}\AgdaSymbol{)}\AgdaSpace{}%
@@ -717,12 +722,16 @@ Note that we must use \AF{⊳ Tree}, because otherwise we would not be able to a
 \AgdaFunction{TimedTree}\AgdaSymbol{)}\<%
 \\
 \>[0]\AgdaFunction{replaceMin}\AgdaSpace{}%
+\AgdaSymbol{\{}\AgdaBound{i}\AgdaSymbol{\}}\AgdaSpace{}%
 \AgdaBound{t}\AgdaSpace{}%
 \AgdaSymbol{=}\AgdaSpace{}%
 \AgdaField{force}\AgdaSpace{}%
 \AgdaSymbol{(}\AgdaFunction{feedback}\AgdaSpace{}%
 \AgdaSymbol{(}\AgdaFunction{rmb}\AgdaSpace{}%
-\AgdaBound{t}\AgdaSymbol{))}\<%
+\AgdaBound{t}\AgdaSymbol{)}\AgdaSpace{}%
+\AgdaSymbol{\{}\AgdaOperator{\AgdaPostulate{↑}}\AgdaSpace{}%
+\AgdaBound{i}\AgdaSymbol{\})}\AgdaSpace{}%
+\AgdaSymbol{\{}\AgdaBound{i}\AgdaSymbol{\}}\<%
 \end{code}
 
 \section{Proving with Sized Types}
@@ -868,14 +877,15 @@ For this we use propositional equality in Agda.
 \AgdaFunction{Time<}\AgdaSpace{}%
 \AgdaBound{i}\AgdaSymbol{\}}\AgdaSpace{}%
 \AgdaSymbol{→}\AgdaSpace{}%
-\AgdaField{force}\AgdaSpace{}%
+\AgdaFunction{eq}\AgdaSpace{}%
+\AgdaBound{A}\AgdaSpace{}%
+\AgdaSymbol{(}\AgdaField{force}\AgdaSpace{}%
 \AgdaSymbol{(}\AgdaBound{x}\AgdaSpace{}%
 \AgdaBound{j}\AgdaSymbol{)}\AgdaSpace{}%
-\AgdaSymbol{\{}\AgdaBound{j}\AgdaSymbol{\}}\AgdaSpace{}%
-\AgdaOperator{\AgdaDatatype{≡}}\AgdaSpace{}%
-\AgdaField{force}\AgdaSpace{}%
+\AgdaSymbol{\{}\AgdaBound{j}\AgdaSymbol{\})}\AgdaSpace{}%
+\AgdaSymbol{(}\AgdaField{force}\AgdaSpace{}%
 \AgdaSymbol{(}\AgdaBound{y}\AgdaSpace{}%
-\AgdaBound{j}\AgdaSymbol{)}\<%
+\AgdaBound{j}\AgdaSymbol{))}\<%
 \end{code}
 
 \section{Correctness}
@@ -989,13 +999,13 @@ For this we use propositional equality in Agda.
 \begin{code}%
 \>[0]\AgdaFunction{rmb₁}\AgdaSpace{}%
 \AgdaSymbol{:}%
-\>[603I]\AgdaFunction{□}\AgdaSymbol{(}\AgdaFunction{∏}\AgdaSpace{}%
+\>[613I]\AgdaFunction{□}\AgdaSymbol{(}\AgdaFunction{∏}\AgdaSpace{}%
 \AgdaFunction{TimedTree}\AgdaSpace{}%
 \AgdaSymbol{(λ}\AgdaSpace{}%
 \AgdaBound{t}\AgdaSpace{}%
 \AgdaSymbol{→}\<%
 \\
-\>[603I][@{}l@{\AgdaIndent{0}}]%
+\>[613I][@{}l@{\AgdaIndent{0}}]%
 \>[9]\AgdaFunction{□}\AgdaSymbol{(}\AgdaFunction{∏}\AgdaSpace{}%
 \AgdaSymbol{(}\AgdaRecord{▻}\AgdaSpace{}%
 \AgdaFunction{TimedNat}\AgdaSymbol{)}\AgdaSpace{}%
@@ -1144,13 +1154,13 @@ For this we use propositional equality in Agda.
 \begin{code}%
 \>[0]\AgdaFunction{rmb₂}\AgdaSpace{}%
 \AgdaSymbol{:}%
-\>[692I]\AgdaFunction{□}\AgdaSymbol{(}\AgdaFunction{∏}\AgdaSpace{}%
+\>[702I]\AgdaFunction{□}\AgdaSymbol{(}\AgdaFunction{∏}\AgdaSpace{}%
 \AgdaFunction{TimedTree}\AgdaSpace{}%
 \AgdaSymbol{(λ}\AgdaSpace{}%
 \AgdaBound{t}\AgdaSpace{}%
 \AgdaSymbol{→}\<%
 \\
-\>[692I][@{}l@{\AgdaIndent{0}}]%
+\>[702I][@{}l@{\AgdaIndent{0}}]%
 \>[9]\AgdaFunction{□}\AgdaSymbol{(}\AgdaFunction{∏}\AgdaSpace{}%
 \AgdaSymbol{(}\AgdaRecord{▻}\AgdaSpace{}%
 \AgdaFunction{TimedNat}\AgdaSymbol{)}\AgdaSpace{}%
@@ -1168,7 +1178,7 @@ For this we use propositional equality in Agda.
 \AgdaSymbol{(}\AgdaFunction{min{-}tree}\AgdaSpace{}%
 \AgdaBound{t}\AgdaSymbol{))))}\<%
 \\
-\>[692I][@{}l@{\AgdaIndent{0}}]%
+\>[702I][@{}l@{\AgdaIndent{0}}]%
 \>[8]\AgdaSymbol{)}\<%
 \\
 \>[0]\AgdaFunction{rmb₂}\AgdaSpace{}%
@@ -1319,20 +1329,21 @@ For this we use propositional equality in Agda.
 \AgdaBound{t}\AgdaSpace{}%
 \AgdaSymbol{(}\AgdaFunction{pure}\AgdaSpace{}%
 \AgdaSymbol{(}\AgdaField{force}\AgdaSpace{}%
-\AgdaBound{n}\AgdaSymbol{))}\<%
+\AgdaBound{n}\AgdaSpace{}%
+\AgdaSymbol{\{}\AgdaBound{j}\AgdaSymbol{\}))}\<%
 \end{code}
 
 \AgdaAlign{
 \begin{code}%
 \>[0]\AgdaFunction{⊳replace}\AgdaSpace{}%
 \AgdaSymbol{:}%
-\>[804I]\AgdaFunction{□}\AgdaSymbol{(}\AgdaFunction{∏}\AgdaSpace{}%
+\>[815I]\AgdaFunction{□}\AgdaSymbol{(}\AgdaFunction{∏}\AgdaSpace{}%
 \AgdaFunction{TimedTree}\AgdaSpace{}%
 \AgdaSymbol{(λ}\AgdaSpace{}%
 \AgdaBound{t}\AgdaSpace{}%
 \AgdaSymbol{→}\<%
 \\
-\>[804I][@{}l@{\AgdaIndent{0}}]%
+\>[815I][@{}l@{\AgdaIndent{0}}]%
 \>[13]\AgdaFunction{□}\AgdaSymbol{(}\AgdaFunction{∏}\AgdaSpace{}%
 \AgdaSymbol{(}\AgdaRecord{▻}\AgdaSpace{}%
 \AgdaFunction{TimedNat}\AgdaSymbol{)}\AgdaSpace{}%
@@ -1350,7 +1361,7 @@ For this we use propositional equality in Agda.
 \AgdaBound{t}\AgdaSpace{}%
 \AgdaBound{n}\AgdaSymbol{))))}\<%
 \\
-\>[804I][@{}l@{\AgdaIndent{0}}]%
+\>[815I][@{}l@{\AgdaIndent{0}}]%
 \>[12]\AgdaSymbol{)}\<%
 \\
 \>[0]\AgdaFunction{⊳replace}\AgdaSpace{}%
@@ -1569,13 +1580,13 @@ For this we use propositional equality in Agda.
 %
 \>[2]\AgdaOperator{\AgdaFunction{≡⟨}}\AgdaSpace{}%
 \AgdaFunction{cong}%
-\>[956I]\AgdaSymbol{(λ}\AgdaSpace{}%
+\>[967I]\AgdaSymbol{(λ}\AgdaSpace{}%
 \AgdaBound{x}\AgdaSpace{}%
 \AgdaSymbol{→}\AgdaSpace{}%
 \AgdaField{force}\AgdaSpace{}%
 \AgdaBound{x}\AgdaSymbol{)}\<%
 \\
-\>[.]\<[956I]%
+\>[.]\<[967I]%
 \>[10]\AgdaSymbol{(}\AgdaFunction{rmb₁}\AgdaSpace{}%
 \AgdaBound{t}\AgdaSpace{}%
 \AgdaSymbol{((}\AgdaFunction{pure}\AgdaSpace{}%
@@ -1684,7 +1695,7 @@ For this we use propositional equality in Agda.
 %
 \>[2]\AgdaOperator{\AgdaFunction{≡⟨}}\AgdaSpace{}%
 \AgdaFunction{cong}%
-\>[1028I]\AgdaSymbol{(λ}\AgdaSpace{}%
+\>[1039I]\AgdaSymbol{(λ}\AgdaSpace{}%
 \AgdaBound{x}\AgdaSpace{}%
 \AgdaSymbol{→}\AgdaSpace{}%
 \AgdaField{force}\AgdaSpace{}%
@@ -1693,7 +1704,7 @@ For this we use propositional equality in Agda.
 \AgdaSymbol{(}\AgdaFunction{pure}\AgdaSpace{}%
 \AgdaBound{x}\AgdaSymbol{)))}\<%
 \\
-\>[.]\<[1028I]%
+\>[.]\<[1039I]%
 \>[10]\AgdaSymbol{(}\AgdaFunction{rmb₂}\AgdaSpace{}%
 \AgdaBound{t}\AgdaSpace{}%
 \AgdaSymbol{((}\AgdaFunction{pure}\AgdaSpace{}%

@@ -75,10 +75,10 @@ They are defined pointwise.
 
 \begin{code}
 Z : □ TimedNat
-Z = 0
+Z {i} = 0
 
 S : □(TimedNat ⇒ TimedNat)
-S n = suc n
+S {i} n = suc n
 \end{code}
 
 At every time, we have both zero and the successor of each timed natural number.
@@ -87,7 +87,7 @@ Note that the function \AF{⊓} takes the minimum of two natural numbers.
 
 \begin{code}
 min : □(TimedNat ⇒ TimedNat ⇒ TimedNat)
-min n m = n ⊓ m
+min {i} n m = n ⊓ m
 \end{code}
 
 The last combinator represents delayed computations.
@@ -107,6 +107,11 @@ record ▻ (A : TimedSet) (i : Time) : Set where
   coinductive
   field force : {j : Time< i} → A j
 open ▻ public
+\end{code}
+
+\begin{code}
+test : {A : TimedSet} → □(▻ A) → □ A
+test x = force x
 \end{code}
 
 The only inhabitants \AF{▻} \AB{A} \AB{i} are those of \AB{A} \AB{j} for \AB{j} smaller than \AB{i}.
@@ -188,13 +193,13 @@ We also have delayed versions of them.
 
 \begin{code}
 TLeaf : □(TimedNat ⇒ TimedTree)
-TLeaf n = Leaf n
+TLeaf {i} n = Leaf n
 
 TNode : □(TimedTree ⇒ TimedTree ⇒ TimedTree)
-TNode l r = Node l r
+TNode {i} l r = Node l r
 
 ▻Leaf : □(▻ TimedNat ⇒ ▻ TimedTree)
-force (▻Leaf n) = Leaf (force n)
+▻Leaf n = pure Leaf ⊛ n
 
 ▻Node : □(▻ TimedTree ⇒ ▻ TimedTree ⇒ ▻ TimedTree)
 ▻Node t₁ t₂ = pure Node ⊛ t₁ ⊛ t₂
@@ -221,7 +226,7 @@ rmb (Node l r) n =
   in (▻Node l' r' , min ml mr)
 
 replaceMin : □(TimedTree ⇒ TimedTree)
-replaceMin t = force (feedback (rmb t))
+replaceMin {i} t = force (feedback (rmb t) {↑ i}) {i}
 \end{code}
 
 \section{Proving with Sized Types}
@@ -257,7 +262,7 @@ Time<Set : TimedSet
 Time<Set i = Time< i
 
 ▻eq : (A : TimedSet) → TimedRelation (Time<Set ⇒ ▻ A) (Time<Set ⇒ ▻ A)
-▻eq A {i} x y = {j : Time< i} → force (x j) {j} ≡ force (y j)
+▻eq A {i} x y = {j : Time< i} → eq A (force (x j) {j}) (force (y j))
 \end{code}
 
 \section{Correctness}
@@ -374,7 +379,7 @@ replace< : □(TimedTree ⇒ ▻ TimedNat ⇒ Time<Set ⇒ ▻ TimedTree)
 replace< t n j = replace t n
 
 replace-pure : □(TimedTree ⇒ ▻ TimedNat ⇒ Time<Set ⇒ ▻ TimedTree)
-replace-pure t n j = replace t (pure (force n))
+replace-pure t n j = replace t (pure (force n {j}))
 \end{code}
 
 \AgdaAlign{
