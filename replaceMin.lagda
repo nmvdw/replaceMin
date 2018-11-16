@@ -109,11 +109,6 @@ record ▻ (A : TimedSet) (i : Time) : Set where
 open ▻ public
 \end{code}
 
-\begin{code}
-test : {A : TimedSet} → □(▻ A) → □ A
-test x = force x
-\end{code}
-
 The only inhabitants \AF{▻} \AB{A} \AB{i} are those of \AB{A} \AB{j} for \AB{j} smaller than \AB{i}.
 This means that something in \AB{A} \AB{i} is only accessible in \AF{▻} \AB{A} \AB{k} for \AB{k} greater than \AB{i}.
 Or, in words, this means that inhabitants of \AB{A} are only available in \AF{▻} \AB{A} at later times.
@@ -226,7 +221,7 @@ rmb (Node l r) n =
   in (▻Node l' r' , min ml mr)
 
 replaceMin : □(TimedTree ⇒ TimedTree)
-replaceMin {i} t = force (feedback (rmb t) {↑ i}) {i}
+replaceMin {i} t = force (feedback (rmb t))
 \end{code}
 
 \section{Proving with Sized Types}
@@ -255,6 +250,8 @@ For this we use propositional equality in Agda.
 \begin{code}
 eq : (A : TimedSet) → TimedRelation A A
 eq A x y = x ≡ y
+
+syntax eq A x y = x ≡[ A ]≡ y
 \end{code}
 
 \begin{code}
@@ -262,7 +259,9 @@ Time<Set : TimedSet
 Time<Set i = Time< i
 
 ▻eq : (A : TimedSet) → TimedRelation (Time<Set ⇒ ▻ A) (Time<Set ⇒ ▻ A)
-▻eq A {i} x y = {j : Time< i} → eq A (force (x j) {j}) (force (y j))
+▻eq A {i} x y = {j : Time< i} → force (x j) {j} ≡[ A ]≡ force (y j)
+
+syntax ▻eq A x y = x ∼[ A ]∼ y
 \end{code}
 
 \section{Correctness}
@@ -285,7 +284,7 @@ replaceMin-spec : □(TimedTree ⇒ TimedTree)
 replaceMin-spec t = force (replace t (pure (min-tree t)))
 
 valid : □(TimedTree ⇒ TimedTree) → Set
-valid f = □(∏ TimedTree (λ t → eq TimedTree (f t) (replaceMin-spec t)))
+valid f = □(∏ TimedTree (λ t → f t ≡[ TimedTree ]≡ replaceMin-spec t))
 \end{code}
 
 \subsection{Proof}
@@ -294,7 +293,7 @@ valid f = □(∏ TimedTree (λ t → eq TimedTree (f t) (replaceMin-spec t)))
 \begin{code}
 rmb₁ : □(∏ TimedTree (λ t →
          □(∏ (▻ TimedNat) (λ n →
-           eq (▻ TimedTree) (proj₁ (rmb t n)) (replace t n)))))
+             proj₁ (rmb t n) ≡[ ▻ TimedTree ]≡ replace t n))))
 rmb₁ (Leaf x) n = refl
 rmb₁ (Node l r) n =
   begin
@@ -340,7 +339,7 @@ rmb₁ (Node l r) n =
 \begin{code}
 rmb₂ : □(∏ TimedTree (λ t →
          □(∏ (▻ TimedNat) (λ n →
-           eq TimedNat (proj₂ (rmb t n)) (min-tree t))))
+             proj₂ (rmb t n) ≡[ TimedNat ]≡ min-tree t)))
         )
 rmb₂ (Leaf x) n = refl
 rmb₂ (Node l r) n =
@@ -386,7 +385,7 @@ replace-pure t n j = replace t (pure (force n {j}))
 \begin{code}
 ⊳replace : □(∏ TimedTree (λ t →
              □(∏ (▻ TimedNat) (λ n →
-               ▻eq TimedTree (replace< t n) (replace-pure t n))))
+                 replace< t n ∼[ TimedTree ]∼ replace-pure t n)))
             )
 ⊳replace (Leaf x) n = refl
 ⊳replace (Node l r) n =
