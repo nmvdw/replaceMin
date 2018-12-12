@@ -240,8 +240,10 @@ Next we define universal quantification and for that we use dependent products.
 Given a sized type \AB{A} and a predicate on \AB{A}, we get another sized type.
 
 \begin{code}
-∏ : (A : TimedSet) → TimedPredicate A → TimedSet
-∏ A B i = (x : A i) → B x
+all : (A : TimedSet) → TimedPredicate A → TimedSet
+all A B i = (x : A i) → B x
+
+syntax all A (λ x → B) = ∏[ x ∈ A ] B
 \end{code}
 
 Furthermore, for each sized type \AB{A}, we have a relation on \AB{A} representing equality.
@@ -284,16 +286,16 @@ replaceMin-spec : □(TimedTree ⇒ TimedTree)
 replaceMin-spec t = force (replace t (pure (min-tree t)))
 
 valid : □(TimedTree ⇒ TimedTree) → Set
-valid f = □(∏ TimedTree (λ t → f t ≡[ TimedTree ]≡ replaceMin-spec t))
+valid f = □(∏[ t ∈ TimedTree ] (f t ≡[ TimedTree ]≡ replaceMin-spec t))
 \end{code}
 
 \subsection{Proof}
 
 \AgdaAlign{
 \begin{code}
-rmb₁ : □(∏ TimedTree (λ t →
-         □(∏ (▻ TimedNat) (λ n →
-             proj₁ (rmb t n) ≡[ ▻ TimedTree ]≡ replace t n))))
+rmb₁ : □(∏[ t ∈ TimedTree ]
+       □(∏[ n ∈ ▻ TimedNat ]
+         (proj₁ (rmb t n) ≡[ ▻ TimedTree ]≡ replace t n)))
 rmb₁ (Leaf x) n = refl
 rmb₁ (Node l r) n =
   begin
@@ -337,10 +339,9 @@ rmb₁ (Node l r) n =
 
 \AgdaAlign{
 \begin{code}
-rmb₂ : □(∏ TimedTree (λ t →
-         □(∏ (▻ TimedNat) (λ n →
-             proj₂ (rmb t n) ≡[ TimedNat ]≡ min-tree t)))
-        )
+rmb₂ : □(∏[ t ∈ TimedTree ]
+       □(∏[ n ∈ ▻ TimedNat ]
+         (proj₂ (rmb t n) ≡[ TimedNat ]≡ min-tree t)))
 rmb₂ (Leaf x) n = refl
 rmb₂ (Node l r) n =
   begin
@@ -383,10 +384,9 @@ replace-pure t n j = replace t (pure (force n {j}))
 
 \AgdaAlign{
 \begin{code}
-⊳replace : □(∏ TimedTree (λ t →
-             □(∏ (▻ TimedNat) (λ n →
-                 replace< t n ∼[ TimedTree ]∼ replace-pure t n)))
-            )
+⊳replace : □(∏[ t ∈ TimedTree ]
+           □(∏[ n ∈ ▻ TimedNat ]
+             (replace< t n ∼[ TimedTree ]∼ replace-pure t n)))
 ⊳replace (Leaf x) n = refl
 ⊳replace (Node l r) n =
   begin
