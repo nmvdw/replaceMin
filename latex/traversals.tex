@@ -350,25 +350,25 @@ Bird's original solution is the following Haskell program \cite{bird1984}.
 \\[\blanklineskip]%
 \>[B]{}\Varid{replaceMin}\mathbin{::}\Conid{Tree}\to \Conid{Tree}{}\<[E]%
 \\
-\>[B]{}\Varid{replaceMin}\;\Varid{t}\mathrel{=}\mathbf{let}\;(\Varid{r},\Varid{m})\mathrel{=}\Varid{rmb}\;\Varid{t}\;\Varid{m}\;\mathbf{in}\;\Varid{r}{}\<[E]%
+\>[B]{}\Varid{replaceMin}\;\Varid{t}\mathrel{=}\mathbf{let}\;(\Varid{r},\Varid{m})\mathrel{=}\Varid{rmb}\;(\Varid{t},\Varid{m})\;\mathbf{in}\;\Varid{r}{}\<[E]%
 \\
 \>[B]{}\hsindent{3}{}\<[3]%
 \>[3]{}\mathbf{where}{}\<[E]%
 \\
 \>[3]{}\hsindent{2}{}\<[5]%
-\>[5]{}\Varid{rmb}\mathbin{::}\Conid{Tree}\to \Conid{Int}\to (\Conid{Tree},\Conid{Int}){}\<[E]%
+\>[5]{}\Varid{rmb}\mathbin{::}(\Conid{Tree},\Conid{Int})\to (\Conid{Tree},\Conid{Int}){}\<[E]%
 \\
 \>[3]{}\hsindent{2}{}\<[5]%
-\>[5]{}\Varid{rmb}\;(\Conid{Leaf}\;\Varid{x})\;\Varid{y}\mathrel{=}(\Conid{Leaf}\;\Varid{y},\Varid{x}){}\<[E]%
+\>[5]{}\Varid{rmb}\;(\Conid{Leaf}\;\Varid{x},\Varid{y})\mathrel{=}(\Conid{Leaf}\;\Varid{y},\Varid{x}){}\<[E]%
 \\
 \>[3]{}\hsindent{2}{}\<[5]%
-\>[5]{}\Varid{rmb}\;(\Conid{Node}\;\Varid{l}\;\Varid{r})\;\Varid{y}\mathrel{=}{}\<[E]%
+\>[5]{}\Varid{rmb}\;(\Conid{Node}\;\Varid{l}\;\Varid{r},\Varid{y})\mathrel{=}{}\<[E]%
 \\
 \>[5]{}\hsindent{2}{}\<[7]%
-\>[7]{}\mathbf{let}\;(\Varid{l'},\Varid{ml})\mathrel{=}\Varid{rmb}\;\Varid{l}\;\Varid{y}{}\<[E]%
+\>[7]{}\mathbf{let}\;(\Varid{l'},\Varid{ml})\mathrel{=}\Varid{rmb}\;(\Varid{l},\Varid{y}){}\<[E]%
 \\
 \>[7]{}\hsindent{4}{}\<[11]%
-\>[11]{}(\Varid{r'},\Varid{mr})\mathrel{=}\Varid{rmb}\;\Varid{r}\;\Varid{y}{}\<[E]%
+\>[11]{}(\Varid{r'},\Varid{mr})\mathrel{=}\Varid{rmb}\;(\Varid{r},\Varid{y}){}\<[E]%
 \\
 \>[5]{}\hsindent{2}{}\<[7]%
 \>[7]{}\mathbf{in}\;(\Conid{Node}\;\Varid{l'}\;\Varid{r'},\Varid{min}\;\Varid{ml}\;\Varid{mr}){}\<[E]%

@@ -86,13 +86,13 @@ Bird's original solution is the following Haskell program \cite{bird1984}.
 data Tree = Leaf Int | Node Tree Tree
 
 replaceMin :: Tree -> Tree
-replaceMin t = let (r, m) = rmb t m in r 
+replaceMin t = let (r, m) = rmb (t, m) in r 
   where
-    rmb :: Tree -> Int -> (Tree, Int)
-    rmb (Leaf x) y = (Leaf y, x)
-    rmb (Node l r) y =
-      let (l',ml) = rmb l y
-          (r',mr) = rmb r y
+    rmb :: (Tree, Int) -> (Tree, Int)
+    rmb (Leaf x, y) = (Leaf y, x)
+    rmb (Node l r, y) =
+      let (l',ml) = rmb (l, y)
+          (r',mr) = rmb (r, y)
       in (Node l' r', min ml mr)
 \end{code}
 
