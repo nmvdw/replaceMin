@@ -240,9 +240,9 @@ rmb₁ (j , Node l r , n) =
     force (▻Node (proj₁ (rmb (l , n))) (proj₁ (rmb (r , n)))) j
   ≡⟨ refl ⟩
     Node (force (proj₁ (rmb (l , n))) j) (force (proj₁ (rmb (r , n))) j)
-  ≡⟨ cong (λ z → Node z _) (rmb₁ (j , l , n)) ⟩
+  ≡⟨ cong (λ z → Node z (force (proj₁ (rmb (r , n))) j)) (rmb₁ (j , l , n)) ⟩
     Node (replace l (force n j)) (force (proj₁ (rmb (r , n))) j)
-  ≡⟨ cong (λ z → Node _ z) (rmb₁ (j , r , n)) ⟩
+  ≡⟨ cong (λ z → Node (replace l (force n j)) z) (rmb₁ (j , r , n)) ⟩
     Node (replace l (force n j)) (replace r (force n j))
   ∎
 
@@ -253,9 +253,9 @@ rmb₂ (Leaf x , n) = refl
 rmb₂ (Node l r , n) =
   begin
     proj₂ (rmb (l , n)) ⊓ proj₂ (rmb (r , n))
-  ≡⟨ cong (λ z → z ⊓ _) (rmb₂ (l , n)) ⟩
+  ≡⟨ cong (λ z → z ⊓ proj₂ (rmb (r , n))) (rmb₂ (l , n)) ⟩
     min-tree l ⊓ proj₂ (rmb (r , n))
-  ≡⟨ cong (λ z → _ ⊓ z) (rmb₂ (r , n)) ⟩
+  ≡⟨ cong (λ z → min-tree l ⊓ z) (rmb₂ (r , n)) ⟩
     min-tree l ⊓ min-tree r
   ∎
 

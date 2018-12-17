@@ -21,6 +21,7 @@
 
 \usepackage{ucs}
 \usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
 \usepackage{autofe}
 
 % Some characters that are not automatically defined
