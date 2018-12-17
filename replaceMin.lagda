@@ -117,11 +117,11 @@ Note that this function calls \AF{fix} again, but the size decreases.
 For that reason, this function is actually productive.
 
 \begin{code}
-equaion-h : □(▻(c ℕ) ⇒ ▻(c ℕ) ⊗ c ℕ) → □(▻(▻(c ℕ) ⊗ c ℕ) ⇒ ▻(c ℕ) ⊗ c ℕ)
-equaion-h f x = f (pure proj₂ ⊛ x)
+equation-h : □(▻(c ℕ) ⇒ ▻(c ℕ) ⊗ c ℕ) → □(▻(▻(c ℕ) ⊗ c ℕ) ⇒ ▻(c ℕ) ⊗ c ℕ)
+equation-h f x = f (pure proj₂ ⊛ x)
 
 equation : □(▻(c ℕ) ⊗ c ℕ)
-equation = fix (equaion-h (λ x → x , 1))
+equation = fix (equation-h (λ x → x , 1))
 
 solution : ℕ × ℕ
 solution = force (proj₁ equation) ∞ , proj₂ equation
@@ -179,18 +179,18 @@ Our next goal is to prove correctness.
 Before doing that, we need to define timed predicates, timed relations, and combinators on them.
 
 \begin{code}
-TimedPredicate : SizedSet → Set₁
-TimedPredicate A = {i : Size} → A i → Set
+SizedPredicate : SizedSet → Set₁
+SizedPredicate A = {i : Size} → A i → Set
 
-TimedRelation : SizedSet → SizedSet → Set₁
-TimedRelation A B = {i : Size} → A i → B i → Set
+SizedRelation : SizedSet → SizedSet → Set₁
+SizedRelation A B = {i : Size} → A i → B i → Set
 \end{code}
 
 Next we define universal quantification and for that we use dependent products.
 Given a sized type \AB{A} and a predicate on \AB{A}, we get another sized type.
 
 \begin{code}
-all : (A : SizedSet) → TimedPredicate A → SizedSet
+all : (A : SizedSet) → SizedPredicate A → SizedSet
 all A B i = (x : A i) → B x
 
 syntax all A (λ x → B) = ∏[ x ∈ A ] B
@@ -200,7 +200,7 @@ Furthermore, for each sized type \AB{A}, we have a relation on \AB{A} representi
 For this we use propositional equality in Agda.
 
 \begin{code}
-eq : (A : SizedSet) → TimedRelation A A
+eq : (A : SizedSet) → SizedRelation A A
 eq A x y = x ≡ y
 
 syntax eq A x y = x ≡[ A ]≡ y
@@ -264,10 +264,12 @@ rm-correct t =
   begin
     replaceMin t
   ≡⟨ refl ⟩
-    force (proj₁ (rmb (t , pure proj₂ ⊛ ▻fix (fb-h (λ x → rmb (t , x)))))) ∞
+    force (proj₁ (rmb (t , pure proj₂ ⊛ ▻fix (fb-h (λ n → rmb (t , n)))))) ∞
   ≡⟨ rmb₁ (∞ , t , pure proj₂ ⊛ ▻fix (fb-h (λ x → rmb (t , x)))) ⟩
-    replace t (proj₂ (feedback rmb t))
-  ≡⟨ cong (replace t) (rmb₂ (t , _)) ⟩
+    replace t (proj₂ (fix (fb-h (λ x → rmb (t , x)))))
+  ≡⟨ refl ⟩
+    replace t (proj₂ (rmb (t , pure proj₂ ⊛ ▻fix (fb-h (λ x → rmb (t , x))))))
+  ≡⟨ cong (replace t) (rmb₂ (t , pure proj₂ ⊛ ▻fix (fb-h (λ x → rmb (t , x))))) ⟩
     replace t (min-tree t)
   ∎
 \end{code}

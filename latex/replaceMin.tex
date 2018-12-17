@@ -327,7 +327,7 @@ Note that this function calls \AF{fix} again, but the size decreases.
 For that reason, this function is actually productive.
 
 \begin{code}%
-\>[0]\AgdaFunction{equaion{-}h}\AgdaSpace{}%
+\>[0]\AgdaFunction{equation{-}h}\AgdaSpace{}%
 \AgdaSymbol{:}\AgdaSpace{}%
 \AgdaFunction{□}\AgdaSymbol{(}\AgdaRecord{▻}\AgdaSymbol{(}\AgdaFunction{c}\AgdaSpace{}%
 \AgdaDatatype{ℕ}\AgdaSymbol{)}\AgdaSpace{}%
@@ -350,7 +350,7 @@ For that reason, this function is actually productive.
 \AgdaFunction{c}\AgdaSpace{}%
 \AgdaDatatype{ℕ}\AgdaSymbol{)}\<%
 \\
-\>[0]\AgdaFunction{equaion{-}h}\AgdaSpace{}%
+\>[0]\AgdaFunction{equation{-}h}\AgdaSpace{}%
 \AgdaBound{f}\AgdaSpace{}%
 \AgdaBound{x}\AgdaSpace{}%
 \AgdaSymbol{=}\AgdaSpace{}%
@@ -373,7 +373,7 @@ For that reason, this function is actually productive.
 \>[0]\AgdaFunction{equation}\AgdaSpace{}%
 \AgdaSymbol{=}\AgdaSpace{}%
 \AgdaFunction{fix}\AgdaSpace{}%
-\AgdaSymbol{(}\AgdaFunction{equaion{-}h}\AgdaSpace{}%
+\AgdaSymbol{(}\AgdaFunction{equation{-}h}\AgdaSpace{}%
 \AgdaSymbol{(λ}\AgdaSpace{}%
 \AgdaBound{x}\AgdaSpace{}%
 \AgdaSymbol{→}\AgdaSpace{}%
@@ -647,13 +647,13 @@ Our next goal is to prove correctness.
 Before doing that, we need to define timed predicates, timed relations, and combinators on them.
 
 \begin{code}%
-\>[0]\AgdaFunction{TimedPredicate}\AgdaSpace{}%
+\>[0]\AgdaFunction{SizedPredicate}\AgdaSpace{}%
 \AgdaSymbol{:}\AgdaSpace{}%
 \AgdaFunction{SizedSet}\AgdaSpace{}%
 \AgdaSymbol{→}\AgdaSpace{}%
 \AgdaPrimitiveType{Set₁}\<%
 \\
-\>[0]\AgdaFunction{TimedPredicate}\AgdaSpace{}%
+\>[0]\AgdaFunction{SizedPredicate}\AgdaSpace{}%
 \AgdaBound{A}\AgdaSpace{}%
 \AgdaSymbol{=}\AgdaSpace{}%
 \AgdaSymbol{\{}\AgdaBound{i}\AgdaSpace{}%
@@ -667,7 +667,7 @@ Before doing that, we need to define timed predicates, timed relations, and comb
 \\
 %
 \\[\AgdaEmptyExtraSkip]%
-\>[0]\AgdaFunction{TimedRelation}\AgdaSpace{}%
+\>[0]\AgdaFunction{SizedRelation}\AgdaSpace{}%
 \AgdaSymbol{:}\AgdaSpace{}%
 \AgdaFunction{SizedSet}\AgdaSpace{}%
 \AgdaSymbol{→}\AgdaSpace{}%
@@ -675,7 +675,7 @@ Before doing that, we need to define timed predicates, timed relations, and comb
 \AgdaSymbol{→}\AgdaSpace{}%
 \AgdaPrimitiveType{Set₁}\<%
 \\
-\>[0]\AgdaFunction{TimedRelation}\AgdaSpace{}%
+\>[0]\AgdaFunction{SizedRelation}\AgdaSpace{}%
 \AgdaBound{A}\AgdaSpace{}%
 \AgdaBound{B}\AgdaSpace{}%
 \AgdaSymbol{=}\AgdaSpace{}%
@@ -702,7 +702,7 @@ Given a sized type \AB{A} and a predicate on \AB{A}, we get another sized type.
 \AgdaSymbol{:}\AgdaSpace{}%
 \AgdaFunction{SizedSet}\AgdaSymbol{)}\AgdaSpace{}%
 \AgdaSymbol{→}\AgdaSpace{}%
-\AgdaFunction{TimedPredicate}\AgdaSpace{}%
+\AgdaFunction{SizedPredicate}\AgdaSpace{}%
 \AgdaBound{A}\AgdaSpace{}%
 \AgdaSymbol{→}\AgdaSpace{}%
 \AgdaFunction{SizedSet}\<%
@@ -737,7 +737,7 @@ For this we use propositional equality in Agda.
 \AgdaSymbol{:}\AgdaSpace{}%
 \AgdaFunction{SizedSet}\AgdaSymbol{)}\AgdaSpace{}%
 \AgdaSymbol{→}\AgdaSpace{}%
-\AgdaFunction{TimedRelation}\AgdaSpace{}%
+\AgdaFunction{SizedRelation}\AgdaSpace{}%
 \AgdaBound{A}\AgdaSpace{}%
 \AgdaBound{A}\<%
 \\
@@ -1188,12 +1188,12 @@ For this we use propositional equality in Agda.
 \AgdaFunction{▻fix}\AgdaSpace{}%
 \AgdaSymbol{(}\AgdaFunction{fb{-}h}\AgdaSpace{}%
 \AgdaSymbol{(λ}\AgdaSpace{}%
-\AgdaBound{x}\AgdaSpace{}%
+\AgdaBound{n}\AgdaSpace{}%
 \AgdaSymbol{→}\AgdaSpace{}%
 \AgdaFunction{rmb}\AgdaSpace{}%
 \AgdaSymbol{(}\AgdaBound{t}\AgdaSpace{}%
 \AgdaOperator{\AgdaInductiveConstructor{,}}\AgdaSpace{}%
-\AgdaBound{x}\AgdaSymbol{))))))}\AgdaSpace{}%
+\AgdaBound{n}\AgdaSymbol{))))))}\AgdaSpace{}%
 \AgdaPostulate{∞}\<%
 \\
 %
@@ -1221,9 +1221,40 @@ For this we use propositional equality in Agda.
 \>[4]\AgdaFunction{replace}\AgdaSpace{}%
 \AgdaBound{t}\AgdaSpace{}%
 \AgdaSymbol{(}\AgdaField{proj₂}\AgdaSpace{}%
-\AgdaSymbol{(}\AgdaFunction{feedback}\AgdaSpace{}%
+\AgdaSymbol{(}\AgdaFunction{fix}\AgdaSpace{}%
+\AgdaSymbol{(}\AgdaFunction{fb{-}h}\AgdaSpace{}%
+\AgdaSymbol{(λ}\AgdaSpace{}%
+\AgdaBound{x}\AgdaSpace{}%
+\AgdaSymbol{→}\AgdaSpace{}%
 \AgdaFunction{rmb}\AgdaSpace{}%
-\AgdaBound{t}\AgdaSymbol{))}\<%
+\AgdaSymbol{(}\AgdaBound{t}\AgdaSpace{}%
+\AgdaOperator{\AgdaInductiveConstructor{,}}\AgdaSpace{}%
+\AgdaBound{x}\AgdaSymbol{)))))}\<%
+\\
+%
+\>[2]\AgdaOperator{\AgdaFunction{≡⟨}}\AgdaSpace{}%
+\AgdaInductiveConstructor{refl}\AgdaSpace{}%
+\AgdaOperator{\AgdaFunction{⟩}}\<%
+\\
+\>[2][@{}l@{\AgdaIndent{0}}]%
+\>[4]\AgdaFunction{replace}\AgdaSpace{}%
+\AgdaBound{t}\AgdaSpace{}%
+\AgdaSymbol{(}\AgdaField{proj₂}\AgdaSpace{}%
+\AgdaSymbol{(}\AgdaFunction{rmb}\AgdaSpace{}%
+\AgdaSymbol{(}\AgdaBound{t}\AgdaSpace{}%
+\AgdaOperator{\AgdaInductiveConstructor{,}}\AgdaSpace{}%
+\AgdaFunction{pure}\AgdaSpace{}%
+\AgdaField{proj₂}\AgdaSpace{}%
+\AgdaOperator{\AgdaFunction{⊛}}\AgdaSpace{}%
+\AgdaFunction{▻fix}\AgdaSpace{}%
+\AgdaSymbol{(}\AgdaFunction{fb{-}h}\AgdaSpace{}%
+\AgdaSymbol{(λ}\AgdaSpace{}%
+\AgdaBound{x}\AgdaSpace{}%
+\AgdaSymbol{→}\AgdaSpace{}%
+\AgdaFunction{rmb}\AgdaSpace{}%
+\AgdaSymbol{(}\AgdaBound{t}\AgdaSpace{}%
+\AgdaOperator{\AgdaInductiveConstructor{,}}\AgdaSpace{}%
+\AgdaBound{x}\AgdaSymbol{))))))}\<%
 \\
 %
 \>[2]\AgdaOperator{\AgdaFunction{≡⟨}}\AgdaSpace{}%
@@ -1233,7 +1264,18 @@ For this we use propositional equality in Agda.
 \AgdaSymbol{(}\AgdaFunction{rmb₂}\AgdaSpace{}%
 \AgdaSymbol{(}\AgdaBound{t}\AgdaSpace{}%
 \AgdaOperator{\AgdaInductiveConstructor{,}}\AgdaSpace{}%
-\AgdaSymbol{\AgdaUnderscore{}))}\AgdaSpace{}%
+\AgdaFunction{pure}\AgdaSpace{}%
+\AgdaField{proj₂}\AgdaSpace{}%
+\AgdaOperator{\AgdaFunction{⊛}}\AgdaSpace{}%
+\AgdaFunction{▻fix}\AgdaSpace{}%
+\AgdaSymbol{(}\AgdaFunction{fb{-}h}\AgdaSpace{}%
+\AgdaSymbol{(λ}\AgdaSpace{}%
+\AgdaBound{x}\AgdaSpace{}%
+\AgdaSymbol{→}\AgdaSpace{}%
+\AgdaFunction{rmb}\AgdaSpace{}%
+\AgdaSymbol{(}\AgdaBound{t}\AgdaSpace{}%
+\AgdaOperator{\AgdaInductiveConstructor{,}}\AgdaSpace{}%
+\AgdaBound{x}\AgdaSymbol{)))))}\AgdaSpace{}%
 \AgdaOperator{\AgdaFunction{⟩}}\<%
 \\
 \>[2][@{}l@{\AgdaIndent{0}}]%
