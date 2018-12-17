@@ -327,7 +327,7 @@ Note that this function calls \AF{fix} again, but the size decreases.
 For that reason, this function is actually productive.
 
 \begin{code}%
-\>[0]\AgdaFunction{wtf}\AgdaSpace{}%
+\>[0]\AgdaFunction{equaion{-}h}\AgdaSpace{}%
 \AgdaSymbol{:}\AgdaSpace{}%
 \AgdaFunction{□}\AgdaSymbol{(}\AgdaRecord{▻}\AgdaSymbol{(}\AgdaFunction{c}\AgdaSpace{}%
 \AgdaDatatype{ℕ}\AgdaSymbol{)}\AgdaSpace{}%
@@ -350,7 +350,7 @@ For that reason, this function is actually productive.
 \AgdaFunction{c}\AgdaSpace{}%
 \AgdaDatatype{ℕ}\AgdaSymbol{)}\<%
 \\
-\>[0]\AgdaFunction{wtf}\AgdaSpace{}%
+\>[0]\AgdaFunction{equaion{-}h}\AgdaSpace{}%
 \AgdaBound{f}\AgdaSpace{}%
 \AgdaBound{x}\AgdaSpace{}%
 \AgdaSymbol{=}\AgdaSpace{}%
@@ -362,7 +362,7 @@ For that reason, this function is actually productive.
 \\
 %
 \\[\AgdaEmptyExtraSkip]%
-\>[0]\AgdaFunction{wtf2}\AgdaSpace{}%
+\>[0]\AgdaFunction{equation}\AgdaSpace{}%
 \AgdaSymbol{:}\AgdaSpace{}%
 \AgdaFunction{□}\AgdaSymbol{(}\AgdaRecord{▻}\AgdaSymbol{(}\AgdaFunction{c}\AgdaSpace{}%
 \AgdaDatatype{ℕ}\AgdaSymbol{)}\AgdaSpace{}%
@@ -370,10 +370,10 @@ For that reason, this function is actually productive.
 \AgdaFunction{c}\AgdaSpace{}%
 \AgdaDatatype{ℕ}\AgdaSymbol{)}\<%
 \\
-\>[0]\AgdaFunction{wtf2}\AgdaSpace{}%
+\>[0]\AgdaFunction{equation}\AgdaSpace{}%
 \AgdaSymbol{=}\AgdaSpace{}%
 \AgdaFunction{fix}\AgdaSpace{}%
-\AgdaSymbol{(}\AgdaFunction{wtf}\AgdaSpace{}%
+\AgdaSymbol{(}\AgdaFunction{equaion{-}h}\AgdaSpace{}%
 \AgdaSymbol{(λ}\AgdaSpace{}%
 \AgdaBound{x}\AgdaSpace{}%
 \AgdaSymbol{→}\AgdaSpace{}%
@@ -383,21 +383,21 @@ For that reason, this function is actually productive.
 \\
 %
 \\[\AgdaEmptyExtraSkip]%
-\>[0]\AgdaFunction{wtf3}\AgdaSpace{}%
+\>[0]\AgdaFunction{solution}\AgdaSpace{}%
 \AgdaSymbol{:}\AgdaSpace{}%
 \AgdaDatatype{ℕ}\AgdaSpace{}%
 \AgdaOperator{\AgdaFunction{×}}\AgdaSpace{}%
 \AgdaDatatype{ℕ}\<%
 \\
-\>[0]\AgdaFunction{wtf3}\AgdaSpace{}%
+\>[0]\AgdaFunction{solution}\AgdaSpace{}%
 \AgdaSymbol{=}\AgdaSpace{}%
 \AgdaField{force}\AgdaSpace{}%
 \AgdaSymbol{(}\AgdaField{proj₁}\AgdaSpace{}%
-\AgdaFunction{wtf2}\AgdaSymbol{)}\AgdaSpace{}%
+\AgdaFunction{equation}\AgdaSymbol{)}\AgdaSpace{}%
 \AgdaPostulate{∞}\AgdaSpace{}%
 \AgdaOperator{\AgdaInductiveConstructor{,}}\AgdaSpace{}%
 \AgdaField{proj₂}\AgdaSpace{}%
-\AgdaFunction{wtf2}\<%
+\AgdaFunction{equation}\<%
 \end{code}
 
 \section{Eliminating Traversals}

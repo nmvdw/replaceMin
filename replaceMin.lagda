@@ -117,14 +117,14 @@ Note that this function calls \AF{fix} again, but the size decreases.
 For that reason, this function is actually productive.
 
 \begin{code}
-wtf : □(▻(c ℕ) ⇒ ▻(c ℕ) ⊗ c ℕ) → □(▻(▻(c ℕ) ⊗ c ℕ) ⇒ ▻(c ℕ) ⊗ c ℕ)
-wtf f x = f (pure proj₂ ⊛ x)
+equaion-h : □(▻(c ℕ) ⇒ ▻(c ℕ) ⊗ c ℕ) → □(▻(▻(c ℕ) ⊗ c ℕ) ⇒ ▻(c ℕ) ⊗ c ℕ)
+equaion-h f x = f (pure proj₂ ⊛ x)
 
-wtf2 : □(▻(c ℕ) ⊗ c ℕ)
-wtf2 = fix (wtf (λ x → x , 1))
+equation : □(▻(c ℕ) ⊗ c ℕ)
+equation = fix (equaion-h (λ x → x , 1))
 
-wtf3 : ℕ × ℕ
-wtf3 = force (proj₁ wtf2) ∞ , proj₂ wtf2
+solution : ℕ × ℕ
+solution = force (proj₁ equation) ∞ , proj₂ equation
 \end{code}
 
 \section{Eliminating Traversals}
