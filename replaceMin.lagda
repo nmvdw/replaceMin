@@ -117,14 +117,13 @@ Note that this function calls \AF{fix} again, but the size decreases.
 For that reason, this function is actually productive.
 
 \begin{code}
-equation-h : □(▻(c ℕ) ⇒ ▻(c ℕ) ⊗ c ℕ) → □(▻(▻(c ℕ) ⊗ c ℕ) ⇒ ▻(c ℕ) ⊗ c ℕ)
-equation-h f x = f (pure proj₂ ⊛ x)
-
-equation : □(▻(c ℕ) ⊗ c ℕ)
-equation = fix (equation-h (λ x → x , 1))
-
-solution : ℕ × ℕ
-solution = force (proj₁ equation) ∞ , proj₂ equation
+_ : ℕ × ℕ
+_ = force (proj₁ equation) ∞ , proj₂ equation
+  where
+    equation-h : □(▻(c ℕ) ⇒ ▻(c ℕ) ⊗ c ℕ) → □(▻(▻(c ℕ) ⊗ c ℕ) ⇒ ▻(c ℕ) ⊗ c ℕ)
+    equation-h f x = f (pure proj₂ ⊛ x)
+    equation : □(▻(c ℕ) ⊗ c ℕ)
+    equation = fix (equation-h (λ x → x , 1))
 \end{code}
 
 \section{Eliminating Traversals}
@@ -238,7 +237,7 @@ rmb₁ (j , Leaf x , n) = refl
 rmb₁ (j , Node l r , n) =
   begin
     force (▻Node (proj₁ (rmb (l , n))) (proj₁ (rmb (r , n)))) j
-  ≡⟨ refl ⟩
+  ≡⟨⟩
     Node (force (proj₁ (rmb (l , n))) j) (force (proj₁ (rmb (r , n))) j)
   ≡⟨ cong (λ z → Node z (force (proj₁ (rmb (r , n))) j)) (rmb₁ (j , l , n)) ⟩
     Node (replace l (force n j)) (force (proj₁ (rmb (r , n))) j)
@@ -263,11 +262,11 @@ rm-correct : (t : Tree) → replaceMin t ≡ replaceMin-spec t
 rm-correct t =
   begin
     replaceMin t
-  ≡⟨ refl ⟩
+  ≡⟨⟩
     force (proj₁ (rmb (t , pure proj₂ ⊛ ▻fix (fb-h (λ n → rmb (t , n)))))) ∞
   ≡⟨ rmb₁ (∞ , t , pure proj₂ ⊛ ▻fix (fb-h (λ x → rmb (t , x)))) ⟩
     replace t (proj₂ (fix (fb-h (λ x → rmb (t , x)))))
-  ≡⟨ refl ⟩
+  ≡⟨⟩
     replace t (proj₂ (rmb (t , pure proj₂ ⊛ ▻fix (fb-h (λ x → rmb (t , x))))))
   ≡⟨ cong (replace t) (rmb₂ (t , pure proj₂ ⊛ ▻fix (fb-h (λ x → rmb (t , x))))) ⟩
     replace t (min-tree t)

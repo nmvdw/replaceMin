@@ -327,7 +327,27 @@ Note that this function calls \AF{fix} again, but the size decreases.
 For that reason, this function is actually productive.
 
 \begin{code}%
-\>[0]\AgdaFunction{equation{-}h}\AgdaSpace{}%
+\>[0]\AgdaFunction{\AgdaUnderscore{}}\AgdaSpace{}%
+\AgdaSymbol{:}\AgdaSpace{}%
+\AgdaDatatype{ℕ}\AgdaSpace{}%
+\AgdaOperator{\AgdaFunction{×}}\AgdaSpace{}%
+\AgdaDatatype{ℕ}\<%
+\\
+\>[0]\AgdaSymbol{\AgdaUnderscore{}}%
+\>[183I]\AgdaSymbol{=}\AgdaSpace{}%
+\AgdaField{force}\AgdaSpace{}%
+\AgdaSymbol{(}\AgdaField{proj₁}\AgdaSpace{}%
+\AgdaFunction{equation}\AgdaSymbol{)}\AgdaSpace{}%
+\AgdaPostulate{∞}\AgdaSpace{}%
+\AgdaOperator{\AgdaInductiveConstructor{,}}\AgdaSpace{}%
+\AgdaField{proj₂}\AgdaSpace{}%
+\AgdaFunction{equation}\<%
+\\
+\>[.]\<[183I]%
+\>[2]\AgdaKeyword{where}\<%
+\\
+\>[2][@{}l@{\AgdaIndent{0}}]%
+\>[4]\AgdaFunction{equation{-}h}\AgdaSpace{}%
 \AgdaSymbol{:}\AgdaSpace{}%
 \AgdaFunction{□}\AgdaSymbol{(}\AgdaRecord{▻}\AgdaSymbol{(}\AgdaFunction{c}\AgdaSpace{}%
 \AgdaDatatype{ℕ}\AgdaSymbol{)}\AgdaSpace{}%
@@ -350,7 +370,8 @@ For that reason, this function is actually productive.
 \AgdaFunction{c}\AgdaSpace{}%
 \AgdaDatatype{ℕ}\AgdaSymbol{)}\<%
 \\
-\>[0]\AgdaFunction{equation{-}h}\AgdaSpace{}%
+%
+\>[4]\AgdaFunction{equation{-}h}\AgdaSpace{}%
 \AgdaBound{f}\AgdaSpace{}%
 \AgdaBound{x}\AgdaSpace{}%
 \AgdaSymbol{=}\AgdaSpace{}%
@@ -361,8 +382,7 @@ For that reason, this function is actually productive.
 \AgdaBound{x}\AgdaSymbol{)}\<%
 \\
 %
-\\[\AgdaEmptyExtraSkip]%
-\>[0]\AgdaFunction{equation}\AgdaSpace{}%
+\>[4]\AgdaFunction{equation}\AgdaSpace{}%
 \AgdaSymbol{:}\AgdaSpace{}%
 \AgdaFunction{□}\AgdaSymbol{(}\AgdaRecord{▻}\AgdaSymbol{(}\AgdaFunction{c}\AgdaSpace{}%
 \AgdaDatatype{ℕ}\AgdaSymbol{)}\AgdaSpace{}%
@@ -370,7 +390,8 @@ For that reason, this function is actually productive.
 \AgdaFunction{c}\AgdaSpace{}%
 \AgdaDatatype{ℕ}\AgdaSymbol{)}\<%
 \\
-\>[0]\AgdaFunction{equation}\AgdaSpace{}%
+%
+\>[4]\AgdaFunction{equation}\AgdaSpace{}%
 \AgdaSymbol{=}\AgdaSpace{}%
 \AgdaFunction{fix}\AgdaSpace{}%
 \AgdaSymbol{(}\AgdaFunction{equation{-}h}\AgdaSpace{}%
@@ -380,24 +401,6 @@ For that reason, this function is actually productive.
 \AgdaBound{x}\AgdaSpace{}%
 \AgdaOperator{\AgdaInductiveConstructor{,}}\AgdaSpace{}%
 \AgdaNumber{1}\AgdaSymbol{))}\<%
-\\
-%
-\\[\AgdaEmptyExtraSkip]%
-\>[0]\AgdaFunction{solution}\AgdaSpace{}%
-\AgdaSymbol{:}\AgdaSpace{}%
-\AgdaDatatype{ℕ}\AgdaSpace{}%
-\AgdaOperator{\AgdaFunction{×}}\AgdaSpace{}%
-\AgdaDatatype{ℕ}\<%
-\\
-\>[0]\AgdaFunction{solution}\AgdaSpace{}%
-\AgdaSymbol{=}\AgdaSpace{}%
-\AgdaField{force}\AgdaSpace{}%
-\AgdaSymbol{(}\AgdaField{proj₁}\AgdaSpace{}%
-\AgdaFunction{equation}\AgdaSymbol{)}\AgdaSpace{}%
-\AgdaPostulate{∞}\AgdaSpace{}%
-\AgdaOperator{\AgdaInductiveConstructor{,}}\AgdaSpace{}%
-\AgdaField{proj₂}\AgdaSpace{}%
-\AgdaFunction{equation}\<%
 \end{code}
 
 \section{Eliminating Traversals}
@@ -927,9 +930,7 @@ For this we use propositional equality in Agda.
 \AgdaBound{j}\<%
 \\
 %
-\>[2]\AgdaOperator{\AgdaFunction{≡⟨}}\AgdaSpace{}%
-\AgdaInductiveConstructor{refl}\AgdaSpace{}%
-\AgdaOperator{\AgdaFunction{⟩}}\<%
+\>[2]\AgdaOperator{\AgdaFunction{≡⟨⟩}}\<%
 \\
 \>[2][@{}l@{\AgdaIndent{0}}]%
 \>[4]\AgdaInductiveConstructor{Node}\AgdaSpace{}%
@@ -1028,7 +1029,7 @@ For this we use propositional equality in Agda.
 \>[0]\AgdaFunction{rmb₂}\AgdaSpace{}%
 \AgdaSymbol{:}\AgdaSpace{}%
 \AgdaFunction{□}\AgdaSymbol{(}\AgdaFunction{∏[}%
-\>[674I]\AgdaBound{p}\AgdaSpace{}%
+\>[672I]\AgdaBound{p}\AgdaSpace{}%
 \AgdaFunction{∈}\AgdaSpace{}%
 \AgdaFunction{c}\AgdaSpace{}%
 \AgdaDatatype{Tree}\AgdaSpace{}%
@@ -1037,7 +1038,7 @@ For this we use propositional equality in Agda.
 \AgdaDatatype{ℕ}\AgdaSymbol{)}\AgdaSpace{}%
 \AgdaFunction{]}\<%
 \\
-\>[.]\<[674I]%
+\>[.]\<[672I]%
 \>[12]\AgdaKeyword{let}\AgdaSpace{}%
 \AgdaSymbol{(}\AgdaBound{t}\AgdaSpace{}%
 \AgdaOperator{\AgdaInductiveConstructor{,}}\AgdaSpace{}%
@@ -1172,9 +1173,7 @@ For this we use propositional equality in Agda.
 \AgdaBound{t}\<%
 \\
 %
-\>[2]\AgdaOperator{\AgdaFunction{≡⟨}}\AgdaSpace{}%
-\AgdaInductiveConstructor{refl}\AgdaSpace{}%
-\AgdaOperator{\AgdaFunction{⟩}}\<%
+\>[2]\AgdaOperator{\AgdaFunction{≡⟨⟩}}\<%
 \\
 \>[2][@{}l@{\AgdaIndent{0}}]%
 \>[4]\AgdaField{force}\AgdaSpace{}%
@@ -1232,9 +1231,7 @@ For this we use propositional equality in Agda.
 \AgdaBound{x}\AgdaSymbol{)))))}\<%
 \\
 %
-\>[2]\AgdaOperator{\AgdaFunction{≡⟨}}\AgdaSpace{}%
-\AgdaInductiveConstructor{refl}\AgdaSpace{}%
-\AgdaOperator{\AgdaFunction{⟩}}\<%
+\>[2]\AgdaOperator{\AgdaFunction{≡⟨⟩}}\<%
 \\
 \>[2][@{}l@{\AgdaIndent{0}}]%
 \>[4]\AgdaFunction{replace}\AgdaSpace{}%
