@@ -1,18 +1,16 @@
+\AgdaHide{
 \begin{code}
-module DecEq where
+module StringMatching.DecEq where
 
-open import Agda.Builtin.Unit
 open import Data.Bool
-open import Data.Bool.Properties
-open import Data.List
-open import Data.List.Properties
 open import Data.Nat
-open import Data.Empty
 open import Relation.Nullary
 open import Relation.Binary.PropositionalEquality
 open import Relation.Binary.Core
-open ≡-Reasoning
+\end{code}
+}
 
+\begin{code}
 record dec-eq (X : Set) : Set where
   field
     dec : Decidable {A = X} _≡_

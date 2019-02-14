@@ -1,21 +1,16 @@
 \AgdaHide{
 \begin{code}
-module StringMatching where
+module StringMatching.StringMatching where
 
 open import Function
 open import Size
 open import Data.Bool
-open import Data.Bool.Properties
 open import Data.List
-open import Data.List.Properties
 open import Data.Nat
-open import Data.Product renaming (map to prod_map)
-open import Data.Sum renaming (map to sum_map)
-open import Relation.Binary.PropositionalEquality
-open ≡-Reasoning
-open import replaceMin
-open import Automata
-open import DecEq
+open import Data.Product hiding (map)
+open import SizedCombinators
+open import StringMatching.Automata
+open import StringMatching.DecEq
 \end{code}
 }
 
