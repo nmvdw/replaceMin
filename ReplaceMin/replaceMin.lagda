@@ -2,8 +2,10 @@
 \begin{code}
 module ReplaceMin.replaceMin where
 
+open import Size
 open import Data.Product
 open import Data.Nat
+
 open import SizedCombinators
 \end{code}
 }
@@ -68,5 +70,5 @@ We first give the equation of which we take the fixpoint.
 \end{code}
 
 \begin{code}
-  in force (proj₁ fixpoint)
+  in force (proj₁ fixpoint) ∞
 \end{code}

@@ -54,7 +54,7 @@ The last construction we need, represents delayed computations.
 \begin{code}
 record ▻ (A : SizedSet) (i : Size) : Set where
   coinductive
-  field force : {j : Size< i} → A j
+  field force : (j : Size< i) → A j
 \end{code}
 
 \AgdaHide{
@@ -68,10 +68,10 @@ We start by giving \AF{▻} the structure of an applicative functor.
 
 \begin{code}
 pure : {A : SizedSet} → □ A → □(▻ A)
-force (pure x) = x
+force (pure x) i = x
 
 _⊛_ : {A B : SizedSet} → □(▻(A ⇒ B) ⇒ ▻ A ⇒ ▻ B)
-force (f ⊛ x) = force f (force x)
+force (f ⊛ x) i = force f i (force x i)
 \end{code}
 
 Lastly, we have a fixpoint combinator, which takes the fixpoint of productive function.
@@ -80,7 +80,7 @@ Lastly, we have a fixpoint combinator, which takes the fixpoint of productive fu
 fix : {A : SizedSet} → □(▻ A ⇒ A) → □ A
 ▻fix : {A : SizedSet} → □(▻ A ⇒ A) → □ (▻ A)
 fix f {i} = f (▻fix f {i})
-force (▻fix f {i}) {j} = fix f {j}
+force (▻fix f {i}) j = fix f {j}
 \end{code}
 
 Now let us see all of this in action via a simple example.
@@ -120,5 +120,5 @@ private
 
 \begin{code}
         (n , m) = fixpoint
-    in force n , m
+    in force n ∞ , m
 \end{code}
