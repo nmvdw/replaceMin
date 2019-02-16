@@ -58,17 +58,18 @@ replaceMin t =
 \end{code}
 
 We first give the equation of which we take the fixpoint.
-
+\AgdaAlign{
 \begin{code}
-  let f : □(▻(▻ (c Tree) ⊗ c ℕ) ⇒ ▻ (c Tree) ⊗ c ℕ)
-      f = gconst₁ rmb t
+  let  f : □(▻(▻ (c Tree) ⊗ c ℕ) ⇒ ▻ (c Tree) ⊗ c ℕ)
+       f = gconst₁ rmb t
 \end{code}
 
 \begin{code}
-      fixpoint : □(▻ (c Tree) ⊗ c ℕ)
-      fixpoint = fix f
+       fixpoint : □(▻ (c Tree) ⊗ c ℕ)
+       fixpoint = fix f
 \end{code}
 
 \begin{code}
-  in force (proj₁ fixpoint) ∞
+  in   force (proj₁ fixpoint) ∞
 \end{code}
+}

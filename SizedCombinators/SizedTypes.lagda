@@ -102,23 +102,25 @@ private
 \end{code}
 }
 
+\AgdaAlign{
 \begin{code}
   solution : ℕ × ℕ
   solution =
 \end{code}
 
 \begin{code}
-    let f : □(▻(▻(c ℕ) ⊗ c ℕ)
-            ⇒ ▻(c ℕ) ⊗ c ℕ)
-        f = const₁ (λ x → x , 1)
+    let  f : □(▻(▻(c ℕ) ⊗ c ℕ)
+             ⇒ ▻(c ℕ) ⊗ c ℕ)
+         f = const₁ (λ x → x , 1)
 \end{code}
 
 \begin{code}
-        fixpoint : □(▻(c ℕ) ⊗ c ℕ)
-        fixpoint = fix f
+         fixpoint : □(▻(c ℕ) ⊗ c ℕ)
+         fixpoint = fix f
 \end{code}
 
 \begin{code}
-        (n , m) = fixpoint
-    in force n ∞ , m
+         (n , m) = fixpoint
+    in   force n ∞ , m
 \end{code}
+}
