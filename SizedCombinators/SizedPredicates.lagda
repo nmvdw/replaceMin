@@ -2,10 +2,7 @@
 \begin{code}
 module SizedCombinators.SizedPredicates where
 
-open import Size
-open import Data.Nat
-open import Data.Product
-open import Relation.Binary.PropositionalEquality
+open import Preamble
 open import SizedCombinators.SizedTypes
 \end{code}
 }

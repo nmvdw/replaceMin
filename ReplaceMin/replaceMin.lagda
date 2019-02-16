@@ -2,10 +2,7 @@
 \begin{code}
 module ReplaceMin.replaceMin where
 
-open import Size
-open import Data.Product
-open import Data.Nat
-
+open import Preamble
 open import SizedCombinators
 \end{code}
 }

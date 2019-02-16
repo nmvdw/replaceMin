@@ -2,12 +2,7 @@
 \begin{code}
 module ReplaceMin.correctness where
 
-open import Size
-open import Data.Nat
-open import Data.Product
-open import Relation.Binary.PropositionalEquality
-open ≡-Reasoning
-
+open import Preamble
 open import SizedCombinators
 open import ReplaceMin.replaceMin
 \end{code}

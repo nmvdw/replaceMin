@@ -2,9 +2,7 @@
 \begin{code}
 module SizedCombinators.SizedTypes where
 
-open import Size
-open import Data.Nat
-open import Data.Product
+open import Preamble
 
 infixl 30 _⊛_
 infixr 30 _⇒_
