@@ -36,8 +36,13 @@ c A i = A
 record ▻ (A : SizedSet) (i : Size) : Set where
   coinductive
   field force : {j : Size< i} → A j
+\end{code}
+
+\AgdaHide{
+\begin{code}
 open ▻ public
 \end{code}
+}
 
 \begin{code}
 pure : {A : SizedSet} → □ A → □(▻ A)

@@ -7,6 +7,7 @@ open import Data.Nat
 open import Data.Product
 open import Relation.Binary.PropositionalEquality
 open ≡-Reasoning
+
 open import SizedCombinators
 open import ReplaceMin.replaceMin
 \end{code}
